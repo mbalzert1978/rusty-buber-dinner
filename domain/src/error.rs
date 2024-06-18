@@ -4,6 +4,7 @@ use std::fmt::Display;
 #[cfg_attr(test, derive(PartialEq))]
 pub enum DomainError {
     Generic,
+    InvalidUuid(String),
 }
 
 impl std::error::Error for DomainError {}
