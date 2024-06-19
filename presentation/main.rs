@@ -7,7 +7,7 @@ use application::authentication_dependencies;
 use axum::Extension;
 use infrastructure::infrastructure_dependencies;
 
-pub use prelude::*;
+use prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<()> {

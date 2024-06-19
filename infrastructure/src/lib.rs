@@ -1,7 +1,6 @@
 mod authentication;
 mod config;
 mod dependencies;
-mod error;
 mod provider;
 
 mod prelude;
