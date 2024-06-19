@@ -1,2 +1,2 @@
-use crate::error::InfrastructurError;
-pub(crate) type Result<T> = core::result::Result<T, InfrastructurError>;
+use application::ApplicationError;
+pub(crate) type Result<T> = core::result::Result<T, ApplicationError>;

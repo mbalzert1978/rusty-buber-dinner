@@ -1,4 +1,6 @@
+mod authentication;
+mod dependencies;
 mod error;
 mod prelude;
 
-pub use error::InfrastructurError;
+pub use dependencies::infrastructure_dependencies;
