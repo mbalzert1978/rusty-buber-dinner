@@ -1,4 +1,5 @@
-use crate::{abstractions::Authentication, prelude::*};
+use crate::abstractions::Authentication;
+use crate::prelude::*;
 
 pub struct AuthenticationResult {
     pub id: String,
