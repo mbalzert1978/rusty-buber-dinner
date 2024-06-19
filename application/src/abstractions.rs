@@ -1,6 +1,7 @@
 pub trait DateTimeProvider: 'static + Send + Sync {
     type DateTime;
     fn utc_now(&self) -> Self::DateTime;
+    fn add_minutes(&self, duration: i64) -> Self::DateTime;
 }
 
 pub trait IdProvider: 'static + Send + Sync {

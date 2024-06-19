@@ -1,5 +1,7 @@
 use std::fmt::Display;
 
+use application::ApplicationError;
+
 #[derive(Debug)]
 pub(crate) enum Error {
     Generic(String),
@@ -14,3 +16,9 @@ impl Display for Error {
 }
 
 impl std::error::Error for Error {}
+
+impl From<ApplicationError> for Error {
+    fn from(value: ApplicationError) -> Self {
+        Self::Generic(value.to_string())
+    }
+}

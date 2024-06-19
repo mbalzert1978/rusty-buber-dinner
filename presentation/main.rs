@@ -11,15 +11,16 @@ pub use prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let config = infrastructure::get_configuration()?;
     let health = health::routes();
     let auth = auth::routes();
 
     let routes = axum::Router::new().merge(health).merge(auth);
-    let (id_provider, token_generator) = infrastructure_dependencies();
+    let (jwt, ids) = infrastructure_dependencies(config);
 
     let app = axum::Router::new()
         .nest("/api/v1/", routes)
-        .layer(Extension(authentication_dependencies(id_provider, token_generator)));
+        .layer(Extension(authentication_dependencies(ids, jwt)));
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:8000")
         .await
