@@ -387,9 +387,6 @@ dependencies = [
 [[package]]
 name = "domain"
 version = "0.1.0"
-dependencies = [
- "uuid",
-]
 
 [[package]]
 name = "domaintemplate"
