@@ -8,4 +8,13 @@ members = ["domain", "application", "infrastructure"]
 
 [dependencies]
 domain = { path = "domain" }
-application ={ path = "application"}
+application = { path = "application" }
+axum = "0.7.5"
+serde = { version = "1.0.203", features = ["derive"] }
+tower = "0.4.13"
+tower-http = { version = "0.5.2", features = ["trace", "timeout"] }
+tokio = { version = "1.38.0", features = ["full"] }
+
+[[bin]]
+name = "domaintemplate"
+path = "presentation/main.rs"
