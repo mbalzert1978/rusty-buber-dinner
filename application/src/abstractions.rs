@@ -1,3 +1,12 @@
+pub trait DateTimeProvider: 'static + Send + Sync {
+    type DateTime;
+    fn utc_now(&self) -> Self::DateTime;
+}
+
+pub trait IdProvider: 'static + Send + Sync {
+    type Id;
+    fn generate_id(&self) -> Self::Id;
+}
 pub trait Authentication: 'static + Send + Sync {
     fn login(&self, email: &str, password: &str) -> super::AuthenticationResult;
     fn register(&self, first_name: &str, last_name: &str, email: &str, password: &str) -> super::AuthenticationResult;

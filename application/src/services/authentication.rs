@@ -1,6 +1,4 @@
-use crate::prelude::*;
-use abstractions::Authentication;
-pub(crate) mod abstractions;
+use crate::{abstractions::Authentication, prelude::*};
 
 pub struct AuthenticationResult {
     pub id: String,
@@ -11,9 +9,9 @@ pub struct AuthenticationResult {
 }
 
 impl AuthenticationResult {
-    pub(crate) fn new(first_name: String, last_name: String, email: String, token: String) -> Self {
+    pub(crate) fn new(id: String, first_name: String, last_name: String, email: String, token: String) -> Self {
         Self {
-            id: uuid::Uuid::now_v7().to_string(),
+            id,
             first_name,
             last_name,
             email,
@@ -22,19 +20,28 @@ impl AuthenticationResult {
     }
 }
 
-pub(crate) struct AuthService {
+pub(crate) struct AuthService<T> {
+    id_generator: IdProvider<T>,
     token_generator: JwtTokenGenerator,
 }
 
-impl AuthService {
-    pub(crate) fn new(token_generator: JwtTokenGenerator) -> Self {
-        Self { token_generator }
+impl<T> AuthService<T> {
+    pub(crate) fn new(id_generator: IdProvider<T>, token_generator: JwtTokenGenerator) -> Self {
+        Self {
+            id_generator,
+            token_generator,
+        }
     }
 }
 
-impl Authentication for AuthService {
+impl<T> Authentication for AuthService<T>
+where
+    T: 'static + ToString,
+{
     fn login(&self, email: &str, password: &str) -> AuthenticationResult {
+        let user_id = self.id_generator.generate_id().to_string();
         AuthenticationResult::new(
+            user_id,
             "first_name".to_string(),
             "last_name".to_string(),
             email.to_string(),
@@ -48,12 +55,18 @@ impl Authentication for AuthService {
         // create user
 
         // generate token
-        let user_id = uuid::Uuid::now_v7().to_string();
+        let user_id = self.id_generator.generate_id().to_string();
         let token = self
             .token_generator
             .generate_token(&user_id, first_name, last_name)
             .unwrap();
 
-        AuthenticationResult::new(first_name.to_string(), last_name.to_string(), email.to_string(), token)
+        AuthenticationResult::new(
+            user_id,
+            first_name.to_string(),
+            last_name.to_string(),
+            email.to_string(),
+            token,
+        )
     }
 }

@@ -1,7 +1,9 @@
 use crate::prelude::*;
 
-use application::{ApplicationError, JwtTokenGenerator};
-use serde::{Deserialize, Serialize};
+use application::abstractions::JwtTokenGenerator;
+use application::ApplicationError;
+use serde::Deserialize;
+use serde::Serialize;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Claims {
