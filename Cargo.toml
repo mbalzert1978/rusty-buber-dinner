@@ -9,6 +9,7 @@ members = ["domain", "application", "infrastructure"]
 [dependencies]
 domain = { path = "domain" }
 application = { path = "application" }
+infrastructure = { path = "infrastructure" }
 axum = "0.7.5"
 serde = { version = "1.0.203", features = ["derive"] }
 tower = "0.4.13"
